@@ -35,13 +35,17 @@ public class Correccion {
 	public void correccion(){
 		for(int i=0;i<this.width;i++){
 			for(int j=0;j<this.height;j++){
-				double m11 = this.getMRed(3, i, j);
-				double m02 = this.getMRed(4, i, j);
-				double m20 = this.getMRed(5, i, j);
+                            double momento00=this.getMRed(0, i, j);
+                            if(momento00>0){
+                                double m11 = (this.getMRed(3, i, j)-this.getMRed(2, i, j)*this.getMRed(1, i, j))/momento00;
+				double m02 = (this.getMRed(5, i, j)-Math.pow(this.getMRed(2, i, j), 2))/momento00;
+				double m20 = (this.getMRed(4, i, j)-Math.pow(this.getMRed(1, i, j), 2))/momento00;
 				if(m11 != 0){
 					double angulo = Math.atan((2*m11)/(m20-m02))/2;
 					this.moments.add(new pixel(i,j,angulo));	
 				}
+                            }
+				
 
 			}
 		}
